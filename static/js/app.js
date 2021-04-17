@@ -19,8 +19,15 @@ function InitDashboard() {
     // populate dropdown
     var selector = d3.select("#selDataset");
         // pull data from samples.json and print to console
-    d3.json("data/samples.json").then(function(data) {
+    d3.json("data/samples.json").then(data => {
         console.log(data);
+        
+        // populate dropdown using samples.json
+        var sampleNames = data.names;
+
+        sampleNames.forEach(sampleId => {
+            selector.append("option").text(sampleId).property("value", sampleId);
+        });
     });
 
     // update bargraph
