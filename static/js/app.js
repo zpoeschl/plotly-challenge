@@ -1,23 +1,22 @@
-// ---- WORK BREAKDOWN STRUCTURE ----
-// import the data
-// populate the dropdown menu
-// generate initial charts based on first item in dropdown (bar graph, bubble chart, demographic panel)
-// draw a bar graph - function
-// draw a bubble chart - function
-// show demographic information panel - function
-// respond to change events on dropdown
-
-// ** LABEL ANY CODE AS "FROM OFFICE HOURS WITH DOM" **
+// --------------------------------------------------------------------------
+// ---code from office hours with Dom:
+// --      -generate bar graph
+// --      -dropdown event handler
+// --      -InitDashboard function
+// ---my code:
+// --      -generate bubble chart
+// --      -generate metadata/demographic info
+// --------------------------------------------------------------------------
 
 // check that file is loading
 console.log("app.js loaded");
 
-// stubs for generating initial charts
+// generate bar graph
 function DrawBargraph(sampleId) {
     console.log(`DrawBargraph(${sampleId})`);
 
     d3.json("data/samples.json").then(data => {
-        console.log(data);
+        // console.log(data);
 
         var samples = data.samples;
         var resultArray = samples.filter(s => s.id == sampleId);
@@ -43,7 +42,7 @@ function DrawBargraph(sampleId) {
 
         var barLayout = {
             title: "Top 10 Bacteria Cultures Found",
-            margin: {t: 30, l: 150}
+            margin: { t: 30, l: 150 }
         }
 
         Plotly.newPlot("bar", barArray, barLayout);
@@ -51,13 +50,69 @@ function DrawBargraph(sampleId) {
     });
 }
 
+// generate bubble chart
 function DrawBubblechart(sampleId) {
     console.log(`DrawBubblechart(${sampleId})`);
+
+    d3.json("data/samples.json").then(data => {
+        // console.log(data);
+
+        var samples = data.samples;
+        var resultArray = samples.filter(s => s.id == sampleId);
+        var result = resultArray[0];
+
+        var otu_ids = result.otu_ids;
+        var otu_labels = result.otu_labels;
+        var sample_values = result.sample_values;
+
+        var bubbleData = {
+            x: otu_ids,
+            y: sample_values,
+            mode: "markers",
+            marker: {
+                size: sample_values,
+                color: otu_ids
+            },
+            type: "scatter"
+        };
+
+        var bubbleArray = [bubbleData];
+
+        var bubbleLayout = {
+            title: "Bacteria Cultures Found by Sample Size",
+            showlegend: false,
+            text: otu_labels
+        };
+
+        Plotly.newPlot("bubble", bubbleArray, bubbleLayout);
+    });
 }
 
-function ShowMetadata(sampleId) {
-    console.log(`ShowMetadata(${sampleId})`);
-}
+
+    // generate demographic info
+    // function ShowMetadata(sampleId) {
+    //     console.log(`ShowMetadata(${sampleId})`);
+
+    //     d3.json("data/samples.json").then(data => {
+    //         console.log(data);
+
+    //         var samples = data.samples;
+    //         var resultArray = samples.filter(s => s.id == sampleId);
+    //         var result = resultArray[0];
+
+    //         var id = result.id;
+    //         var ethnicity = result.ethnicity;
+    //         var gender = result.gender;
+    //         var age = result.age;
+    //         var location = result.location;
+    //         var bbtype = result.bbtype;
+    //         var wfreq = result.wfreq;
+
+    //         var demoMetadata = {
+    //             type: "table",
+
+    //         }
+    // }
 
 // create event handler for dropdown
 function optionChanged(newSampleId) {
@@ -66,18 +121,18 @@ function optionChanged(newSampleId) {
     // update charts based on new selected item from dropdown
     DrawBargraph(newSampleId);
     DrawBubblechart(newSampleId);
-    ShowMetadata(newSampleId);
+    // ShowMetadata(newSampleId);
 }
 
-// create initial function
+// create InitDashboard function
 function InitDashboard() {
-    console.log("InitDashboard()");
+    // console.log("InitDashboard()");
 
     // populate dropdown
     var selector = d3.select("#selDataset");
-        // pull data from samples.json and print to console
+    // pull data from samples.json and print to console
     d3.json("data/samples.json").then(data => {
-        console.log(data);
+        // console.log(data);
 
         // populate dropdown using samples.json
         var sampleNames = data.names;
@@ -86,20 +141,12 @@ function InitDashboard() {
             selector.append("option").text(sampleId).property("value", sampleId);
         });
 
-        // create a stub working with first item in dropdown ("[0]")
         var id = sampleNames[0];
 
         DrawBargraph(id);
         DrawBubblechart(id);
-        ShowMetadata(id);
-    });
-
-    // update bargraph
-
-    // update bubble chart
-
-    // update demograph info
-
+        // ShowMetadata(id);
+    }); 
 }
 
 // call the function
