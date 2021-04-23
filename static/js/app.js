@@ -99,16 +99,35 @@ function ShowMetadata(sampleId) {
         var resultArray = metadata.filter(m => m.id == sampleId);
         var result = resultArray[0];
 
-        var id = result.id;
-        var ethnicity = result.ethnicity;
-        var gender = result.gender;
-        var age = result.age;
-        var location = result.location;
-        var bbtype = result.bbtype;
-        var wfreq = result.wfreq;
+        // var demographics = [
+        //     var id = result.id;
+        //     var ethnicity = result.ethnicity;
+        //     var gender = result.gender;
+        //     var age = result.age;
+        //     var location = result.location;
+        //     var bbtype = result.bbtype;
+        //     var wfreq = result.wfreq;
 
-        console.log(age);
+        // var demographics = metadata.map((demo, index) => {
+        //     return `${index}: ${demo}`;
+        // });
+        // console.log(demographics);
+
+        metadata.forEach(meta => console.log(`id: ${meta.id}`));
+
+        // console.log(age);
         // .panel-body
+
+        // var metaData = {
+        //     type: "table",
+        //     header: {
+        //         align: ["left", "center"],
+        //         values: [["id"], ["ethnicity"], ["gender"], ["age"], ["location"], ["bbtype"], ["wfreq"]]
+        //     }
+        //     cells: {
+        //         values: demographics
+        //     }
+        // }
     });
 }
 
