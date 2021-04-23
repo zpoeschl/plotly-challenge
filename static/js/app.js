@@ -99,21 +99,23 @@ function ShowMetadata(sampleId) {
         var resultArray = metadata.filter(m => m.id == sampleId);
         var result = resultArray[0];
 
-        // var demographics = [
-        //     var id = result.id;
-        //     var ethnicity = result.ethnicity;
-        //     var gender = result.gender;
-        //     var age = result.age;
-        //     var location = result.location;
-        //     var bbtype = result.bbtype;
-        //     var wfreq = result.wfreq;
+        // metadata.forEach(meta => console.log(`id: ${meta.id}`));
+        var id = metadata.forEach(meta => (`id: ${meta.id}`));
+        var ethnicity = metadata.forEach(meta => (`ethnicity: ${meta.ethnicity}`));
+        var gender = metadata.forEach(meta => (`gender: ${meta.gender}`));
+        var age = metadata.forEach(meta => (`age: ${meta.age}`));
+        var location = metadata.forEach(meta => (`location: ${meta.location}`));
+        var bbtype = metadata.forEach(meta => (`bbtype: ${meta.bbtype}`));
+        var wfreq = metadata.forEach(meta => (`wfreq: ${meta.wfreq}`));
 
-        // var demographics = metadata.map((demo, index) => {
-        //     return `${index}: ${demo}`;
-        // });
-        // console.log(demographics);
-
-        metadata.forEach(meta => console.log(`id: ${meta.id}`));
+        //var ids = metadata.map(meta => meta.id);
+        console.log("id: ", result.id);
+        console.log("ethnicity: ", result.ethnicity);
+        console.log("gender: ", result.gender);
+        console.log("age: ", result.age);
+        console.log("location: ", result.location);
+        console.log("bbtype: ", result.bbtype);
+        console.log("wfreq: ", result.wfreq);
 
         // console.log(age);
         // .panel-body
