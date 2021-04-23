@@ -89,30 +89,28 @@ function DrawBubblechart(sampleId) {
 }
 
 
-    // generate demographic info
-    // function ShowMetadata(sampleId) {
-    //     console.log(`ShowMetadata(${sampleId})`);
+// generate demographic info
+function ShowMetadata(sampleId) {
+    console.log(`ShowMetadata(${sampleId})`);
 
-    //     d3.json("data/samples.json").then(data => {
-    //         console.log(data);
+    d3.json("data/samples.json").then(data => {
 
-    //         var samples = data.samples;
-    //         var resultArray = samples.filter(s => s.id == sampleId);
-    //         var result = resultArray[0];
+        var metadata = data.metadata;
+        var resultArray = metadata.filter(m => m.id == sampleId);
+        var result = resultArray[0];
 
-    //         var id = result.id;
-    //         var ethnicity = result.ethnicity;
-    //         var gender = result.gender;
-    //         var age = result.age;
-    //         var location = result.location;
-    //         var bbtype = result.bbtype;
-    //         var wfreq = result.wfreq;
+        var id = result.id;
+        var ethnicity = result.ethnicity;
+        var gender = result.gender;
+        var age = result.age;
+        var location = result.location;
+        var bbtype = result.bbtype;
+        var wfreq = result.wfreq;
 
-    //         var demoMetadata = {
-    //             type: "table",
-
-    //         }
-    // }
+        console.log(age);
+        // .panel-body
+    });
+}
 
 // create event handler for dropdown
 function optionChanged(newSampleId) {
@@ -145,7 +143,7 @@ function InitDashboard() {
 
         DrawBargraph(id);
         DrawBubblechart(id);
-        // ShowMetadata(id);
+        ShowMetadata(id);
     }); 
 }
 
