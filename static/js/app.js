@@ -28,19 +28,21 @@ function ShowMetadata(sampleId) {
         var location = result.location;
         var bbtype = result.bbtype;
         var wfreq = result.wfreq;
-        
-        // d3.select("#sample-metadata").text(`id: ${id} 
-        //     ethnicity: ${ethnicity} 
-        //     gender: ${gender} 
-        //     age: ${age} 
-        //     location: ${location} 
-        //     bbtype: ${bbtype} 
-        //     wfreq: ${wfreq}`);
 
         d3.select("#sample-metadata")
             .text(`id: ${id}`)
             .append("p")
-            .text(`ethnicity: ${ethnicity}`);
+            .text(`ethnicity: ${ethnicity}`)
+            .append("P")
+            .text(`gender: ${gender}`)
+            .append("p")
+            .text(`age: ${age}`)
+            .append("p")
+            .text(`location: ${location}`)
+            .append("p")
+            .text(`bbtype: ${bbtype}`)
+            .append("p")
+            .text(`wfreq: ${wfreq}`);
     });
 }
 
