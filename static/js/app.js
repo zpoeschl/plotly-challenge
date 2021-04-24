@@ -28,20 +28,23 @@ function ShowMetadata(sampleId) {
         var location = result.location;
         var bbtype = result.bbtype;
         var wfreq = result.wfreq;
+        console.log(id);
 
-        var demoData = {
-            type: "table",
-            header: {
-                values: [["<b>ID</b>"], ["<b>ETHNICITY</b>"], ["<b>GENDER</b>"], ["<b>AGE</b>"], ["<b>LOCATION</b>"], ["<b>BBTYPE</b>"], ["<b>WFREQ</b>"]],
-                align: ["left", "center"]
-            },
-            cells: {
-                values: [id, ethnicity, gender, age, location, bbtype, wfreq],
-                align: ["left", "center"]
-            }
-        };
+        // var demoData = {
+        //     type: "table",
+        //     header: {
+        //         values: [["<b>ID</b>"], ["<b>ETHNICITY</b>"], ["<b>GENDER</b>"], ["<b>AGE</b>"], ["<b>LOCATION</b>"], ["<b>BBTYPE</b>"], ["<b>WFREQ</b>"]],
+        //         align: ["left", "center"]
+        //     },
+        //     cells: {
+        //         values: [id, ethnicity, gender, age, location, bbtype, wfreq],
+        //         align: ["left", "center"]
+        //     }
+        // };
 
-        Plotly.newPlot("sample-metadata", demoData);        
+        // Plotly.newPlot("sample-metadata", demoData);   
+        
+        d3.select(".sample-metadata").text(`${id}`);
     });
 }
 
@@ -127,9 +130,9 @@ function optionChanged(newSampleId) {
     console.log(`User selected ${newSampleId}`);
 
     // update charts based on new selected item from dropdown
+    ShowMetadata(newSampleId);
     DrawBargraph(newSampleId);
     DrawBubblechart(newSampleId);
-    ShowMetadata(newSampleId);
 }
 
 // create InitDashboard function
