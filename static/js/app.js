@@ -29,7 +29,13 @@ function ShowMetadata(sampleId) {
         var bbtype = result.bbtype;
         var wfreq = result.wfreq;
         
-        d3.select("#sample-metadata").text(`id: ${id}`);
+        d3.select("#sample-metadata").text(`id: ${id} 
+            ethnicity: ${ethnicity} 
+            gender: ${gender} 
+            age: ${age} 
+            location: ${location} 
+            bbtype: ${bbtype} 
+            wfreq: ${wfreq}`);
     });
 }
 
