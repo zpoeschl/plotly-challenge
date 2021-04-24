@@ -11,6 +11,40 @@
 // check that file is loading
 console.log("app.js loaded");
 
+// generate demographic info
+function ShowMetadata(sampleId) {
+    console.log(`ShowMetadata(${sampleId})`);
+
+    d3.json("data/samples.json").then(data => {
+
+        var metadata = data.metadata;
+        var resultArray = metadata.filter(m => m.id == sampleId);
+        var result = resultArray[0];
+
+        var id = result.id;
+        var ethnicity = result.ethnicity;
+        var gender = result.gender;
+        var age = result.age;
+        var location = result.location;
+        var bbtype = result.bbtype;
+        var wfreq = result.wfreq;
+
+        var demoData = {
+            type: "table",
+            header: {
+                values: [["<b>ID</b>"], ["<b>ETHNICITY</b>"], ["<b>GENDER</b>"], ["<b>AGE</b>"], ["<b>LOCATION</b>"], ["<b>BBTYPE</b>"], ["<b>WFREQ</b>"]],
+                align: ["left", "center"]
+            },
+            cells: {
+                values: [id, ethnicity, gender, age, location, bbtype, wfreq],
+                align: ["left", "center"]
+            }
+        };
+
+        Plotly.newPlot("sample-metadata", demoData);        
+    });
+}
+
 // generate bar graph
 function DrawBargraph(sampleId) {
     console.log(`DrawBargraph(${sampleId})`);
@@ -88,64 +122,6 @@ function DrawBubblechart(sampleId) {
     });
 }
 
-// generate demographic info
-function ShowMetadata(sampleId) {
-    console.log(`ShowMetadata(${sampleId})`);
-
-    d3.json("data/samples.json").then(data => {
-
-        var metadata = data.metadata;
-        var resultArray = metadata.filter(m => m.id == sampleId);
-        var result = resultArray[0];
-
-        var id = result.id;
-        var ethnicity = result.ethnicity;
-        var gender = result.gender;
-        var age = result.age;
-        var location = result.location;
-        var bbtype = result.bbtype;
-        var wfreq = result.wfreq;
-
-        //d3.select(".panel-body").text(id);
-
-        var demoData = {
-            type: "table",
-            header: {
-                values: [["<b>ID</b>"], ["<b>ETHNICITY</b>"], ["<b>GENDER</b>"], ["<b>AGE</b>"], ["<b>LOCATION</b>"], ["<b>BBTYPE</b>"], ["<b>WFREQ</b>"]],
-                align: ["left", "center"]
-            },
-            cells: {
-                values: id, ethnicity, gender, age, location, bbtype, wfreq,
-                align: ["left", "center"]
-            }
-        };
-
-        Plotly.newPlot("sample-metadata", demoData);
-
-        // pull demographic metadata
-        // var id = metadata.forEach(meta => (`id: ${meta.id}`));
-        // var ethnicity = metadata.forEach(meta => (`ethnicity: ${meta.ethnicity}`));
-        // var gender = metadata.forEach(meta => (`gender: ${meta.gender}`));
-        // var age = metadata.forEach(meta => (`age: ${meta.age}`));
-        // var location = metadata.forEach(meta => (`location: ${meta.location}`));
-        // var bbtype = metadata.forEach(meta => (`bbtype: ${meta.bbtype}`));
-        // var wfreq = metadata.forEach(meta => (`wfreq: ${meta.wfreq}`));
-
-        // attach to `result`, test print to console
-        // console.log("id: ", result.id);
-        // console.log("ethnicity: ", result.ethnicity);
-        // console.log("gender: ", result.gender);
-        // console.log("age: ", result.age);
-        // console.log("location: ", result.location);
-        // console.log("bbtype: ", result.bbtype);
-        // console.log("wfreq: ", result.wfreq);
-
-        // push demographic metadata to html, <div id="sample-metadata" class="panel-body"></div>
-        // d3.select(".panel-body").text(`id: ${result.id}`);
-        
-    });
-}
-
 // create event handler for dropdown
 function optionChanged(newSampleId) {
     console.log(`User selected ${newSampleId}`);
@@ -153,7 +129,7 @@ function optionChanged(newSampleId) {
     // update charts based on new selected item from dropdown
     DrawBargraph(newSampleId);
     DrawBubblechart(newSampleId);
-    // ShowMetadata(newSampleId);
+    ShowMetadata(newSampleId);
 }
 
 // create InitDashboard function
@@ -175,9 +151,9 @@ function InitDashboard() {
 
         var id = sampleNames[0];
 
+        ShowMetadata(id);
         DrawBargraph(id);
         DrawBubblechart(id);
-        ShowMetadata(id);
     }); 
 }
 
