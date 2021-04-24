@@ -88,7 +88,6 @@ function DrawBubblechart(sampleId) {
     });
 }
 
-
 // generate demographic info
 function ShowMetadata(sampleId) {
     console.log(`ShowMetadata(${sampleId})`);
@@ -99,7 +98,7 @@ function ShowMetadata(sampleId) {
         var resultArray = metadata.filter(m => m.id == sampleId);
         var result = resultArray[0];
 
-        // metadata.forEach(meta => console.log(`id: ${meta.id}`));
+        // pull demographic metadata
         var id = metadata.forEach(meta => (`id: ${meta.id}`));
         var ethnicity = metadata.forEach(meta => (`ethnicity: ${meta.ethnicity}`));
         var gender = metadata.forEach(meta => (`gender: ${meta.gender}`));
@@ -108,28 +107,17 @@ function ShowMetadata(sampleId) {
         var bbtype = metadata.forEach(meta => (`bbtype: ${meta.bbtype}`));
         var wfreq = metadata.forEach(meta => (`wfreq: ${meta.wfreq}`));
 
-        //var ids = metadata.map(meta => meta.id);
-        console.log("id: ", result.id);
-        console.log("ethnicity: ", result.ethnicity);
-        console.log("gender: ", result.gender);
-        console.log("age: ", result.age);
-        console.log("location: ", result.location);
-        console.log("bbtype: ", result.bbtype);
-        console.log("wfreq: ", result.wfreq);
+        // attach to `result`, test print to console
+        // console.log("id: ", result.id);
+        // console.log("ethnicity: ", result.ethnicity);
+        // console.log("gender: ", result.gender);
+        // console.log("age: ", result.age);
+        // console.log("location: ", result.location);
+        // console.log("bbtype: ", result.bbtype);
+        // console.log("wfreq: ", result.wfreq);
 
-        // console.log(age);
-        // .panel-body
-
-        // var metaData = {
-        //     type: "table",
-        //     header: {
-        //         align: ["left", "center"],
-        //         values: [["id"], ["ethnicity"], ["gender"], ["age"], ["location"], ["bbtype"], ["wfreq"]]
-        //     }
-        //     cells: {
-        //         values: demographics
-        //     }
-        // }
+        // push demographic metadata to html, <div id="sample-metadata" class="panel-body"></div>
+        d3.select(".panel-body").text(`id: ${result.id}`);
     });
 }
 
